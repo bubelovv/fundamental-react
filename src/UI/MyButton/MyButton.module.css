@@ -1,0 +1,12 @@
+.myButton {
+    color: darkmagenta;
+    background-color: #fff;
+    padding: 5px 15px;
+    border: 2px solid darkmagenta;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.myButton:disabled {
+    cursor: default;
+}
