@@ -7,15 +7,27 @@ import MyInput from "./UI/MyInput/MyInput";
 
 function App() {
     const [posts, setPosts] = useState([
-        {id: '1', title: '5', text: '3'},
-        {id: '2', title: '4', text: '4'},
-        {id: '3', title: '3', text: '5'},
-        {id: '4', title: '2', text: '1'},
-        {id: '5', title: '1', text: '2'},
+        {id: '1', title: 'dd', text: 'bb'},
+        {id: '2', title: 'ee', text: 'cc'},
+        {id: '3', title: 'aa', text: 'dd'},
+        {id: '4', title: 'bb', text: 'ee'},
+        {id: '5', title: 'cc', text: 'aa'},
     ])
 
     const [selectedSort, setSelectedSort] = useState('')
     const [searchQuery, setSearchQuery] = useState('')
+
+    const sortedPosts = useMemo(() => {
+        console.log('work')
+        if (selectedSort) {
+            return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+        }
+        return posts
+    }, [selectedSort, posts])
+
+    const searchedSortedPosts = useMemo(() => {
+        return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    }, [searchQuery, sortedPosts])
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
@@ -24,14 +36,6 @@ function App() {
     const removePost = (id) => {
         setPosts(posts.filter(post => post.id !== id))
     }
-
-    const getSortedPosts = useMemo(() => {
-        console.log('work')
-        if (selectedSort) {
-            return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
-        }
-        return posts
-    }, [selectedSort, posts])
 
     const onChange = (sort) => {
         setSelectedSort(sort)
@@ -56,8 +60,8 @@ function App() {
                     {value: 'text', name: 'sort by text'},
                 ]}/>
 
-            {posts.length
-                ? <PostList remove={removePost} title='My skills' posts={getSortedPosts}/>
+            {searchedSortedPosts.length
+                ? <PostList remove={removePost} title='My skills' posts={searchedSortedPosts}/>
                 : <h1 style={{textAlign: 'center'}}>Posts wasn't find</h1>
             }
         </div>
