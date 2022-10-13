@@ -3,6 +3,8 @@ import './styles/App.css';
 import PostList from "./components/PostList";
 import PostForm from "./UI/PostForm";
 import PostFilter from "./components/PostFilter";
+import MyModal from "./UI/MyModal/MyModal";
+import MyButton from "./UI/MyButton/MyButton";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -27,6 +29,8 @@ function App() {
         return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()))
     }, [filter.query, sortedPosts])
 
+    const [modal, setModal] = useState(false)
+
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
     }
@@ -37,7 +41,17 @@ function App() {
 
     return (
         <div className="App">
-            <PostForm createPost={createPost}/>
+            <MyButton
+                style={{marginTop: 20}}
+                onClick={() => setModal(true)}>
+                Add new post
+            </MyButton>
+
+            <MyModal
+                visible={modal}
+                setVisible={setModal}>
+                <PostForm createPost={createPost}/>
+            </MyModal>
             <hr style={{margin: '15px 0'}}/>
 
             <PostFilter
