@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import MyInput from "./MyInput/MyInput";
-import MyButton from "./MyButton/MyButton";
+import MyInput from './MyInput/MyInput';
+import MyButton from './MyButton/MyButton';
 
 const PostForm = ({createPost}) => {
-    const [post, setPost] = useState({title: '', text: ''})
+    const [post, setPost] = useState({title: '', text: ''});
 
     const addPost = (event) => {
-        event.preventDefault()
-        createPost({...post, id: Date.now()})
-        setPost({title: '', text: ''})
-    }
+        event.preventDefault();
+        createPost({...post, id: Date.now()});
+        setPost({title: '', text: ''});
+    };
 
     return (
         <form>

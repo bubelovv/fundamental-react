@@ -28,18 +28,6 @@
   align-items: flex-start;
 }
 
-.post__title {
-
-}
-
-.post__text {
-
-}
-
-.post__btn {
-
-}
-
 .post-enter {
   opacity: 0;
   transform: translateX(-500px);
