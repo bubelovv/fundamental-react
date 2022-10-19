@@ -1,10 +1,11 @@
-import React, {useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import './styles/App.css';
 import PostList from './components/PostList';
 import PostForm from './UI/PostForm';
 import PostFilter from './components/PostFilter';
 import MyModal from './UI/MyModal/MyModal';
 import MyButton from './UI/MyButton/MyButton';
+import {useSearchedSortedPosts} from './hooks/usePosts';
 
 function App() {
     const [posts, setPosts] = useState([
@@ -14,25 +15,13 @@ function App() {
         {id: 4, title: 'bb', text: 'ee'},
         {id: 5, title: 'cc', text: 'aa'},
     ]);
-
     const [filter, setFilter] = useState({sort: '', query: ''});
-
-    const sortedPosts = useMemo(() => {
-        if (filter.sort) {
-            console.log(filter.sort);
-            return [...posts].sort((a, b) => String(a[filter.sort]).localeCompare(String(b[filter.sort])));
-        }
-        return posts;
-    }, [filter.sort, posts]);
-
-    const searchedSortedPosts = useMemo(() => {
-        return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()));
-    }, [filter.query, sortedPosts]);
-
     const [modal, setModal] = useState(false);
+    const searchedSortedPosts = useSearchedSortedPosts(posts, filter.sort, filter.query);
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost]);
+        setModal(false);
     };
 
     const removePost = (id) => {
@@ -40,7 +29,7 @@ function App() {
     };
 
     return (
-        <div className='App'>
+        <div className="App">
             <MyButton
                 style={{marginTop: 20}}
                 onClick={() => setModal(true)}>
@@ -59,7 +48,7 @@ function App() {
                 setFilter={setFilter}/>
 
             {searchedSortedPosts.length
-                ? <PostList remove={removePost} title='My skills' posts={searchedSortedPosts}/>
+                ? <PostList remove={removePost} title="My skills" posts={searchedSortedPosts}/>
                 : <h1 style={{textAlign: 'center'}}>Posts wasn't find</h1>
             }
         </div>
