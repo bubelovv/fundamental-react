@@ -40,3 +40,20 @@
 
 }
 
+.post-enter {
+  opacity: 0;
+  transform: translateX(-500px);
+}
+.post-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+  transition: opacity, transform 500ms ease-in;
+}
+.post-exit {
+  opacity: 1;
+}
+.post-exit-active {
+  opacity: 0;
+  transform: translateX(-500px);
+  transition: all 500ms ease-in;
+}
