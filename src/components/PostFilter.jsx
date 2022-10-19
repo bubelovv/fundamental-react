@@ -8,7 +8,6 @@ const PostFilter = ({filter, setFilter}) => {
             <MyInput
                 placeholder="search post..."
                 value={filter.query}
-                type="text"
                 onChange={e => setFilter({...filter, query: e.target.value})}/>
             <MySelect
                 value={filter.sort}
@@ -19,7 +18,7 @@ const PostFilter = ({filter, setFilter}) => {
                 options={[
                     {value: 'id', name: 'sort by id'},
                     {value: 'title', name: 'sort by title'},
-                    {value: 'text', name: 'sort by text'},
+                    {value: 'body', name: 'sort by body'},
                 ]}/>
         </div>
     );
