@@ -1,8 +1,12 @@
 import axios from 'axios';
 
-export class PostService {
+export default class PostService {
     static async getAll() {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        return response.data;
+        try {
+            const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
