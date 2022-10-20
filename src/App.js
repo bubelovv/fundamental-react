@@ -5,27 +5,26 @@ import PostForm from './components/PostForm';
 import PostFilter from './components/PostFilter';
 import MyModal from './UI/MyModal/MyModal';
 import MyButton from './UI/MyButton/MyButton';
-import {useSearchedSortedPosts} from './hooks/usePosts';
-import PostService from './API/PostService';
 import Loader from './UI/Loader/Loader';
+import {useSearchedSortedPosts} from './hooks/usePosts';
+import {useFetching} from './hooks/useFetching';
+import PostService from './API/PostService';
 
 function App() {
     const [posts, setPosts] = useState([]);
     const [filter, setFilter] = useState({sort: '', query: ''});
     const [modal, setModal] = useState(false);
-    const [isPostsLoading, setIsPostsLoading] = useState(false);
+    const [firstLoading, setFirstLoading] = useState(true);
     const searchedSortedPosts = useSearchedSortedPosts(posts, filter.sort, filter.query);
+    const [fetchPosts, isPostsLoading, postsError] = useFetching(async () => {
+        setFirstLoading(false);
+        const posts = await PostService.getAll();
+        setPosts(posts);
+    });
 
     useEffect(() => {
         fetchPosts();
     }, []);
-
-    const fetchPosts = async () => {
-        setIsPostsLoading(true);
-        const posts = await PostService.getAll();
-        setPosts(posts);
-        setIsPostsLoading(false);
-    };
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost]);
@@ -56,9 +55,11 @@ function App() {
                 filter={filter}
                 setFilter={setFilter}/>
 
-            {isPostsLoading || !searchedSortedPosts.length
-                ? <Loader/>
-                : <PostList remove={removePost} title="My skills" posts={searchedSortedPosts}/>
+            {postsError && <h1 style={{textAlign: 'center'}}>{postsError}</h1>}
+            {firstLoading ? <Loader/> :
+                isPostsLoading
+                    ? <Loader/>
+                    : <PostList remove={removePost} title="My skills" posts={searchedSortedPosts}/>
             }
         </div>
     );
