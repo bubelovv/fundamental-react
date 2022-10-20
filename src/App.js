@@ -9,21 +9,33 @@ import Loader from './UI/Loader/Loader';
 import {useSearchedSortedPosts} from './hooks/usePosts';
 import {useFetching} from './hooks/useFetching';
 import PostService from './API/PostService';
+import {getArrayOfNumbers, getTotalPages} from './utils/helper';
+import Pagination from './UI/Pagination/Pagination';
 
 function App() {
     const [posts, setPosts] = useState([]);
     const [filter, setFilter] = useState({sort: '', query: ''});
     const [modal, setModal] = useState(false);
     const [firstLoading, setFirstLoading] = useState(true);
-    const searchedSortedPosts = useSearchedSortedPosts(posts, filter.sort, filter.query);
-    const [fetchPosts, isPostsLoading, postsError] = useFetching(async () => {
-        setFirstLoading(false);
-        const posts = await PostService.getAll();
-        setPosts(posts);
+
+    const [limitPosts, setLimitPosts] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+
+
+    const [fetchPosts, isPostsLoading, postsError] = useFetching(async (limit, current) => {
+        const response = await PostService.getAll(limit, current);
+        const totalPosts = response.headers['x-total-count'];
+        setTotalPages(getTotalPages(totalPosts, limitPosts));
+        setPosts(response.data);
     });
+    const searchedSortedPosts = useSearchedSortedPosts(posts, filter.sort, filter.query);
+
+    const numbersPages = getArrayOfNumbers(totalPages);
 
     useEffect(() => {
-        fetchPosts();
+        setFirstLoading(false);
+        fetchPosts(limitPosts, currentPage);
     }, []);
 
     const createPost = (newPost) => {
@@ -35,11 +47,17 @@ function App() {
         setPosts(posts.filter(post => post.id !== id));
     };
 
+    const changePage = (page) => {
+        setCurrentPage(page);
+        fetchPosts(limitPosts, page);
+    };
+
     return (
         <div className="App">
             <MyButton
                 style={{marginTop: 20}}
-                onClick={() => setModal(true)}>
+                onClick={() => setModal(true)}
+            >
                 Add new post
             </MyButton>
 
@@ -61,6 +79,12 @@ function App() {
                     ? <Loader/>
                     : <PostList remove={removePost} title="My skills" posts={searchedSortedPosts}/>
             }
+
+            <Pagination
+                numbersPages={numbersPages}
+                currentPage={currentPage}
+                changePage={changePage}
+            />
         </div>
     );
 }
