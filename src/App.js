@@ -9,7 +9,6 @@ import Loader from './UI/Loader/Loader';
 import {useSearchedSortedPosts} from './hooks/usePosts';
 import {useFetching} from './hooks/useFetching';
 import PostService from './API/PostService';
-import {getArrayOfNumbers, getTotalPages} from './utils/helper';
 import Pagination from './UI/Pagination/Pagination';
 
 function App() {
@@ -20,18 +19,15 @@ function App() {
 
     const [limitPosts, setLimitPosts] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-
+    const [totalPosts, setTotalPosts] = useState(0);
 
     const [fetchPosts, isPostsLoading, postsError] = useFetching(async (limit, current) => {
+        setTotalPosts(0);
         const response = await PostService.getAll(limit, current);
-        const totalPosts = response.headers['x-total-count'];
-        setTotalPages(getTotalPages(totalPosts, limitPosts));
+        setTotalPosts(response.headers['x-total-count']);
         setPosts(response.data);
     });
     const searchedSortedPosts = useSearchedSortedPosts(posts, filter.sort, filter.query);
-
-    const numbersPages = getArrayOfNumbers(totalPages);
 
     useEffect(() => {
         setFirstLoading(false);
@@ -81,7 +77,8 @@ function App() {
             }
 
             <Pagination
-                numbersPages={numbersPages}
+                limitPosts={limitPosts}
+                totalPosts={totalPosts}
                 currentPage={currentPage}
                 changePage={changePage}
             />

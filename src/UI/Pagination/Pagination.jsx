@@ -1,6 +1,8 @@
 import React from 'react';
+import {usePagination} from '../../hooks/usePagination';
 
-const Pagination = ({numbersPages, currentPage, changePage}) => {
+const Pagination = ({totalPosts, limitPosts, currentPage, changePage}) => {
+    const numbersPages = usePagination(totalPosts, limitPosts);
     return (
         <div className="pages__wrapper">
             {numbersPages.map(p =>
