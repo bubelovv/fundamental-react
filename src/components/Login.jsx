@@ -5,22 +5,23 @@ import {AuthContext} from '../context';
 import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
-    const {setIsAuth} = useContext(AuthContext);
+    const {isAuth, setIsAuth} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const login = event => {
         event.preventDefault();
         setIsAuth(true);
-        navigate('/about/')
+        localStorage.setItem('auth', 'true');
+        navigate('/posts/');
     };
 
     return (
         <div>
             <h1 style={{textAlign: 'center'}}>Login form</h1>
-            <form>
+            <form onSubmit={login}>
                 <MyInput type="text" placeholder="login"/>
                 <MyInput type="password" placeholder="password"/>
-                <MyButton onClick={login}>login</MyButton>
+                <MyButton>login</MyButton>
             </form>
         </div>
     );
