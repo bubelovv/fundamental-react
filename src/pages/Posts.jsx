@@ -49,6 +49,7 @@ function Posts() {
 
     return (
         <div className="App">
+
             <MyButton
                 style={{marginTop: 20}}
                 onClick={() => setModal(true)}
@@ -69,10 +70,19 @@ function Posts() {
                 setFilter={setFilter}/>
 
             {postsError && <h1 style={{textAlign: 'center'}}>{postsError}</h1>}
+            <h1 style={{textAlign: 'center', margin: '0 0 20px'}}>
+                My posts
+            </h1>
+            <Pagination
+                limitPosts={limitPosts}
+                totalPosts={totalPosts}
+                currentPage={currentPage}
+                changePage={changePage}
+            />
             {firstLoading ? <Loader/> :
                 isPostsLoading
                     ? <Loader/>
-                    : <PostList remove={removePost} title="My skills" posts={searchedSortedPosts}/>
+                    : <PostList remove={removePost} posts={searchedSortedPosts}/>
             }
 
             <Pagination

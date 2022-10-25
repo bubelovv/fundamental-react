@@ -80,6 +80,7 @@
   margin-left: 20px;
   text-decoration: none;
   line-height: 0.8;
+  transition: all linear 0.1s;
 }
 
 .navbar__link:hover {
