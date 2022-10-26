@@ -3,7 +3,7 @@
     height: 80px;
     border-radius: 50%;
     border: 4px dashed darkmagenta;
-    margin: 100px auto 0;
+    margin: 100px auto 100px;
     animation: loader 1s ease-in-out infinite;
 }
 
