@@ -1,6 +1,6 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {privatRoutes, publicRoutes} from '../router/router';
+import {privateRoutes, publicRoutes} from '../router/router';
 import {AuthContext} from '../context';
 import Loader from '../UI/Loader/Loader';
 
@@ -12,14 +12,14 @@ const AppRouter = () => {
     return (
         isAuth
             ? <Routes>
-                {privatRoutes.map(route =>
+                {privateRoutes.map(route =>
                     <Route
                         key={route.path}
                         path={route.path}
                         element={route.element}
                     />
                 )}
-                <Route path="*" element={<Navigate to="/posts"/>}/>
+                <Route path="*" element={<Navigate to="/error"/>}/>
             </Routes>
             : <Routes>
                 {publicRoutes.map(route =>

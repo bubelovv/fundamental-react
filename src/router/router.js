@@ -5,7 +5,7 @@ import About from '../pages/About';
 import Error from '../pages/Error';
 import Login from '../components/Login';
 
-export const privatRoutes = [
+export const privateRoutes = [
     {path: '/posts/:id', element: <PostPage/>},
     {path: '/posts', element: <Posts/>},
     {path: '/about', element: <About/>},
