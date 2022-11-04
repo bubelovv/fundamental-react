@@ -1,0 +1,41 @@
+.postPage {
+    max-width: 1000px;
+    width: 100%;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 14px;
+}
+
+.postTitle {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 10px 10px 0 0;
+    color: #ffffff;
+    background-color: teal;
+}
+
+.postBody {
+    padding: 5px;
+    border-radius: 0 0 10px 10px;
+    border: 2px teal solid;
+    background-color: #fff;
+}
+
+.commentWrap {
+    margin-top: 10px;
+}
+
+.commentTitle {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px 10px 0 0;
+    color: #ffffff;
+    background-color: darkmagenta;
+}
+
+.commentBody {
+    padding: 5px;
+    border: 2px solid darkmagenta;
+    border-radius: 0 0 10px 10px;
+}

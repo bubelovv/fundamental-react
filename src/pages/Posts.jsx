@@ -102,7 +102,7 @@ function Posts() {
 
             {(firstLoading || isPostsLoading) && <Loader/>}
             <PostList remove={removePost} posts={searchedSortedPosts}/>
-            <div ref={lastElement} style={{height: 20, backgroundColor: 'teal'}}></div>
+            <div ref={lastElement}></div>
 
             <Pagination
                 limitPosts={limitPosts}

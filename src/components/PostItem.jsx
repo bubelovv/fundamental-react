@@ -2,7 +2,7 @@ import React from 'react';
 import MyButton from '../UI/MyButton/MyButton';
 import {useNavigate} from 'react-router-dom';
 
-const PostItem = ({post, number, remove}) => {
+const PostItem = ({post, remove}) => {
     const navigate = useNavigate();
 
     return (
@@ -15,7 +15,7 @@ const PostItem = ({post, number, remove}) => {
             </div>
             <div style={{display: 'flex', flexDirection: 'column'}}>
                 <MyButton style={{marginBottom: 5}} onClick={() => navigate('/posts/' + post.id)}>Open</MyButton>
-                <MyButton onClick={() => remove(post.id)}>Delete</MyButton>
+                <button className="post__btn_delete" onClick={() => remove(post.id)}>Delete</button>
             </div>
         </div>
     );

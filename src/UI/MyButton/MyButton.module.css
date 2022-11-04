@@ -1,12 +1,12 @@
 .myButton {
-    color: darkmagenta;
-    background-color: #fff;
     padding: 5px 15px;
     border: 2px solid darkmagenta;
+    border-radius: 4px;
     font-size: 14px;
+    color: darkmagenta;
+    background-color: #fff;
     cursor: pointer;
     transition: all linear 0.15s;
-    border-radius: 4px;
 }
 
 .myButton:disabled {

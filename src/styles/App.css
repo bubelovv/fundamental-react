@@ -11,6 +11,10 @@
   align-items: center;
 }
 
+.app-content {
+  padding: 0 10px;
+}
+
 .App {
   width: 800px;
   padding: 0 5px;
@@ -22,6 +26,7 @@
   padding: 15px;
   margin: 0 0 15px;
   border: 2px solid darkmagenta;
+  border-radius: 10px;
 }
 
 .post__content {
@@ -46,6 +51,22 @@
   opacity: 0;
   transform: translateX(-500px);
   transition: all 500ms ease-in;
+}
+
+.post__btn_delete {
+  padding: 5px 15px;
+  border: 2px solid darkmagenta;
+  border-radius: 4px;
+  font-size: 14px;
+  color: darkmagenta;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all linear 0.15s;
+}
+
+.post__btn_delete:hover {
+  color: #fff;
+  background-color: rgb(217, 0, 0);
 }
 
 .pages__wrapper {

@@ -11,7 +11,7 @@ function App() {
 
     useEffect(() => {
         setIsAuth(localStorage.getItem('auth'));
-        setIsLoadingApp(false)
+        setIsLoadingApp(false);
     }, []);
 
     return (
@@ -23,7 +23,9 @@ function App() {
         }}>
             <BrowserRouter>
                 <Navbar/>
-                <AppRouter/>
+                <div className='app-content'>
+                    <AppRouter/>
+                </div>
             </BrowserRouter>
         </AuthContext.Provider>
     );
